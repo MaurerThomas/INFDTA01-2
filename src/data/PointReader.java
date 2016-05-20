@@ -1,16 +1,12 @@
 package data;
 
-
 import point.Point;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.Collectors;
-
-
 
 public class PointReader {
     private List<Point> points;
@@ -34,32 +30,15 @@ public class PointReader {
        return points;
    }
 
-
-    public List<List<String>> read() throws FileNotFoundException {
-
-        try (BufferedReader reader = new BufferedReader(source)) {
-
-            return reader.lines()
-                    .map(line -> Arrays.asList(line.split(",")))
-                    .collect(Collectors.toList());
-
-        } catch (IOException e) {
-            throw new UncheckedIOException(e);
-        }
-    }
-
-
-
     private void parseLines(List<String[]> lines) {
         for(int i = 0; i < lines.get(0).length; i++) {
-            ArrayList<Integer> values = new ArrayList<>(lines.size());
+            ArrayList<Double> values = new ArrayList<>(lines.size());
 
             for(int j = 0; j < lines.size(); j++) {
-                values.add(Integer.parseInt(lines.get(j)[i]));
+                values.add(Double.parseDouble(lines.get(j)[i]));
             }
             points.add(new Point(values));
         }
     }
-
 
 }

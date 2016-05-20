@@ -1,21 +1,16 @@
 package point;
 
-import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Thomas on 15-5-2016.
- */
 public class Point {
-    private ArrayList<Integer> customerPoints;
+    private List<Double> customerPoints;
 
-    public Point(ArrayList<Integer> customerPoints) {
+    public Point(List<Double> customerPoints) {
         this.customerPoints = customerPoints;
     }
 
-    public List<Integer> getCustomerPoints() {
+    public List<Double> getCustomerPoints() {
         return customerPoints;
     }
-
 
 }
