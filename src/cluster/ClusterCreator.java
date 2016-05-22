@@ -30,15 +30,39 @@ public class ClusterCreator {
 
     public List<Cluster> initClusters() {
         Random randomGenerator = new Random();
-
-
         clusters = new ArrayList<>();
         for (int i = 0; i < MAX_CLUSTERS; i++) {
             int index = randomGenerator.nextInt(points.size());
             Cluster cluster = new Cluster(i);
-            cluster.setCentroid(points.get(index));
+            setCentroid(index, cluster);
             clusters.add(cluster);
         }
+        assignPointsToCluster();
         return clusters;
+    }
+
+    private void setCentroid(int index, Cluster cluster) {
+        cluster.setCentroid(points.get(index));
+    }
+
+    private void assignPointsToCluster() {
+        double maximum = Double.MAX_VALUE;
+        double min;
+        double distance;
+        int cluster = 0;
+
+        for (Point point : points) {
+            min = maximum;
+            for (int i = 0; i < MAX_CLUSTERS; i++) {
+                Cluster c = clusters.get(i);
+                distance = Point.distance(point, c.getCentroid());
+                if (distance < min) {
+                    point.setDistance(distance);
+                    min = distance;
+                    cluster = i;
+                }
+            }
+            clusters.get(cluster).addPoint(point);
+        }
     }
 }

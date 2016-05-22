@@ -1,14 +1,16 @@
 package cluster;
 
+import distance.SquaredEuclidianDistance;
 import point.Point;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Cluster {
-    public List<Point> points;
-    public Point centroid;
-    public int id;
+    private SquaredEuclidianDistance squaredEuclidianDistance = new SquaredEuclidianDistance();
+    private List<Point> points;
+    private Point centroid;
+    private int id;
 
     public Cluster(int id) {
         this.points = new ArrayList<>();
@@ -38,6 +40,14 @@ public class Cluster {
 
     public void clearPoints() {
         this.points.clear();
+    }
+
+    public double calculateSSE() {
+        double sum = 0;
+        for(Point point : points) {
+            sum += squaredEuclidianDistance.calculate(point, centroid);
+        }
+        return sum;
     }
 
 }
