@@ -61,8 +61,24 @@ public class ClusterCreator {
                     min = distance;
                     cluster = i;
                 }
+                c.calculateSSE();
             }
             clusters.get(cluster).addPoint(point);
         }
     }
+
+     public List<Cluster> createClusters(int iterations) {
+         double maximum = Double.MAX_VALUE;
+         List<Cluster> bestNumberOfClusters = null;
+
+         for(int i =0; i < iterations;i++) {
+             clusters = initClusters();
+             //double sumSquaredErrors = getSSE();
+//             if (sumSquaredErrors < maximum) {
+//                 maximum = sumSquaredErrors;
+//                 bestNumberOfClusters = clusters;
+//             }
+         }
+        return bestNumberOfClusters;
+     }
 }
