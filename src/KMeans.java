@@ -22,7 +22,8 @@ public class KMeans {
         try {
             points = pointReader.readCsv();
             clusterCreator = new ClusterCreator(points);
-            clusterCreator.initClusters();
+            clusterCreator.initRandomClusters();
+            clusterCreator.createClusters(5);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
