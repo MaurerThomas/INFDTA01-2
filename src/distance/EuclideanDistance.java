@@ -8,11 +8,11 @@ public class EuclideanDistance {
 
     public double calculate(Point point, Point centroid) {
         double sum = 0;
-        List<Double> customerPoints = point.getCustomerPoints();
-        List<Double> centroidCustomerPoints = centroid.getCustomerPoints();
+        List<Double> purchases = point.getPurchases();
+        List<Double> centroidPurchases = centroid.getPurchases();
 
-        for (int i = 0; i < customerPoints.size() && i < centroidCustomerPoints.size(); i++) {
-            double d = customerPoints.get(i) - centroidCustomerPoints.get(i);
+        for (int i = 0; i < purchases.size() && i < centroidPurchases.size(); i++) {
+            double d = purchases.get(i) - centroidPurchases.get(i);
             sum += Math.pow(d, d);
         }
         return Math.sqrt(sum);

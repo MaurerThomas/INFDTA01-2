@@ -4,32 +4,32 @@ import point.Point;
 
 import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class KMeans {
+    private Logger logger = Logger.getLogger("myLogger");
 
 
     public static void main(String[] args) {
-        initClusters();
+        KMeans kMeans = new KMeans();
+        kMeans.init();
 
-        System.out.println("test");
     }
 
-    private static void initClusters() {
-        PointReader pointReader = new PointReader();
+    private void init() {
         ClusterCreator clusterCreator;
-        List<Point> points;
-
         try {
-            points = pointReader.readCsv();
-            clusterCreator = new ClusterCreator(points);
-            clusterCreator.initRandomClusters();
-            clusterCreator.createClusters(5);
+            // Create Points.
+            clusterCreator = new ClusterCreator(new PointReader().readCsv());
+            // Set Random Centroids.
+            clusterCreator.initRandomCentroids();
+            clusterCreator.createClusters(10);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            logger.log(Level.SEVERE, "Could not find the file: ", e);
         }
-
-        System.out.println("kaas");
-
     }
+
+
 
 }

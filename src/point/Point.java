@@ -5,16 +5,16 @@ import distance.EuclideanDistance;
 import java.util.List;
 
 public class Point {
-    private List<Double> customerPoints;
+    private List<Double> purchases;
     private static EuclideanDistance euclideanDistance = new EuclideanDistance();
     private double distance;
 
-    public Point(List<Double> customerPoints) {
-        this.customerPoints = customerPoints;
+    public Point(List<Double> purchases) {
+        this.purchases = purchases;
     }
 
-    public List<Double> getCustomerPoints() {
-        return customerPoints;
+    public List<Double> getPurchases() {
+        return purchases;
     }
 
     public static double distance(Point point, Point centroid) {

@@ -42,12 +42,14 @@ public class Cluster {
         this.points.clear();
     }
 
-    public double calculateSSE() {
+    public double calculateSSE(List<Point> otherPoint) {
         double sum = 0;
-        for(Point point : points) {
-            sum += squaredEuclidianDistance.calculate(point, centroid);
+        //TODO Fix dit, is verkeerd. Compare met alle points die NIET in dezelfde cluster zit.
+        for(Point otherPoints : otherPoint) {
+            for(Point point : points) {
+                sum += squaredEuclidianDistance.calculate(point, otherPoints);
+            }
         }
         return sum;
     }
-
 }
