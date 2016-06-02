@@ -123,8 +123,9 @@ public class ClusterCreator {
     private double getSSE(List<Cluster> clusters) {
         double sum = 0;
         for(Cluster c : clusters) {
-            sum += c.calculateSSE(c.getPoints());
+            sum += c.calculateSSE();
         }
+        System.out.println("SSE: " + sum);
         return sum;
     }
 
