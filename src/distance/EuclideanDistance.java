@@ -13,7 +13,7 @@ public class EuclideanDistance {
 
         for (int i = 0; i < purchases.size() && i < centroidPurchases.size(); i++) {
             double d = purchases.get(i) - centroidPurchases.get(i);
-            sum += Math.pow(d, d);
+            sum += d*d;
         }
         return Math.sqrt(sum);
     }

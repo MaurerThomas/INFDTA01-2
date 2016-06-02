@@ -10,6 +10,10 @@ public class ClusterCreator {
     private int MAX_CLUSTERS = 4;
     private List<Cluster> clusters;
     private List<Point> allPoints;
+    private double bestSSE = 0;
+
+
+    private List<Cluster> bestNumberOfClusters = null;
 
     public ClusterCreator(List<Point> allPoints) {
         this.clusters = new ArrayList<>();
@@ -32,13 +36,14 @@ public class ClusterCreator {
 
     public List<Cluster> createClusters(int iterations) {
         double maximum = Double.MAX_VALUE;
-        List<Cluster> bestNumberOfClusters = null;
+
 
         for (int i = 0; i < iterations; i++) {
             clusters = initClusters();
             double sumSquaredErrors = getSSE(clusters);
              if (sumSquaredErrors < maximum) {
                  maximum = sumSquaredErrors;
+                 setBestSSE(sumSquaredErrors);
                  bestNumberOfClusters = clusters;
              }
         }
@@ -79,7 +84,7 @@ public class ClusterCreator {
             }
         }
 
-        for (int i = 0; i < purchasesMeanTemp.size(); i++) {
+        for (int i = 0; i < purchasesMeanTemp.size() && numberOfPoints > 0; i++) {
             double purchasesMeanTempVal = purchasesMeanTemp.get(i);
             purchasesMeanTempVal = purchasesMeanTempVal / numberOfPoints;
 
@@ -90,19 +95,19 @@ public class ClusterCreator {
     }
 
     private void assignPointsToCluster() {
-        double maximum = Double.MAX_VALUE;
-        double min;
+
+
         double distance;
         int cluster = 0;
-        clearClusters();
+
         for (Point point : allPoints) {
-            min = maximum;
+            double maximum = Double.POSITIVE_INFINITY;
             for (int i = 0; i < MAX_CLUSTERS; i++) {
                 Cluster c = clusters.get(i);
                 distance = Point.distance(point, c.getCentroid());
-                if (distance < min) {
+                if (distance < maximum) {
                     point.setDistance(distance);
-                    min = distance;
+                    maximum = distance;
                     cluster = i;
                 }
             }
@@ -125,9 +130,20 @@ public class ClusterCreator {
         for(Cluster c : clusters) {
             sum += c.calculateSSE();
         }
-        System.out.println("SSE: " + sum);
+
         return sum;
+
     }
 
+    public double getBestSSE() {
+        return bestSSE;
+    }
 
+    public void setBestSSE(double bestSSE) {
+        this.bestSSE = bestSSE;
+    }
+
+    public List<Cluster> getBestNumberOfClusters() {
+        return bestNumberOfClusters;
+    }
 }
