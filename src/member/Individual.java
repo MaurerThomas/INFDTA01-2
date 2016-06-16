@@ -4,13 +4,13 @@ import evaluation.Fitness;
 
 public class Individual {
     private int fitness = 0;
-    private final byte gene;
+    private byte gene;
 
     public Individual() {
-        gene = setGene();
+        gene = setGenes();
     }
 
-    public byte setGene() {
+    private byte setGenes() {
         byte b = 0;
         for (int i = 0; i < 5; i++) {
             b |= getRandomBit(i);
@@ -18,12 +18,16 @@ public class Individual {
         return b;
     }
 
+    public void setGene(byte genes) {
+        gene = genes;
+    }
+
     public byte getGene() {
         return gene;
     }
 
     private int getRandomBit(int b) {
-        if(Math.random() < 0.5) {
+        if (Math.random() < 0.5) {
             return 1 << b;
         }
         return 0;
