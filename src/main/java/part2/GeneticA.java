@@ -1,3 +1,5 @@
+package part2;
+
 import geneticAlgorithm.Algorithm;
 import member.Population;
 

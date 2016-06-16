@@ -1,3 +1,5 @@
+package part1;
+
 import cluster.Cluster;
 import cluster.ClusterCreator;
 import data.PointReader;
@@ -7,8 +9,6 @@ import java.io.FileNotFoundException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.Int;
 
 public class KMeans {
     private Logger logger = Logger.getLogger("myLogger");
