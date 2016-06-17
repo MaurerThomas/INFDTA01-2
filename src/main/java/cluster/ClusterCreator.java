@@ -12,7 +12,6 @@ public class ClusterCreator {
     private List<Point> allPoints;
     private double bestSSE = 0;
 
-
     private List<Cluster> bestNumberOfClusters = null;
 
     public ClusterCreator(List<Point> allPoints) {

@@ -27,25 +27,29 @@ public class KMeans {
             clusterCreator = new ClusterCreator(new PointReader().readCsv());
             // Set Random Centroids.
             clusterCreator.initRandomCentroids();
-            clusterCreator.createClusters(100);
-            postProcesStep(clusterCreator.getBestNumberOfClusters());
+            clusterCreator.createClusters(200);
+            postProcesStep(clusterCreator);
         } catch (FileNotFoundException e) {
             logger.log(Level.SEVERE, "Could not find the file: ", e);
         }
     }
 
 
-    private void postProcesStep(List<Cluster> clusters) {
+    private void postProcesStep(ClusterCreator clusterCreator) {
         Map<Integer, Double> totalPurchasesMap = new TreeMap();
+        List<Cluster> clusters = clusterCreator.getBestNumberOfClusters();
 
-        for (Cluster cluster: clusters) {
-            for (Point point: cluster.getPoints()) {
+        //TODO: SSE moet rond de 215 zijn.
+        System.out.println("Best SSE: " + clusterCreator.getBestSSE());
+
+        for (Cluster cluster : clusters) {
+            for (Point point : cluster.getPoints()) {
                 List<Double> purchases = point.getPurchases();
 
-                for(int i =0 ; i < purchases.size(); i++){
-                    if(totalPurchasesMap.containsKey(i)){
+                for (int i = 0; i < purchases.size(); i++) {
+                    if (totalPurchasesMap.containsKey(i)) {
                         totalPurchasesMap.put(i, (purchases.get(i) + totalPurchasesMap.get(i)));
-                    }else{
+                    } else {
                         totalPurchasesMap.put(i, purchases.get(i));
                     }
                 }
@@ -54,12 +58,11 @@ public class KMeans {
             Map<Integer, Double> temp = sortByValue(totalPurchasesMap);
 
             System.out.println("\n" + "Cluster: " + cluster.getId() + "\n");
-            for (Map.Entry<Integer, Double> entry : temp.entrySet())
-            {
+            for (Map.Entry<Integer, Double> entry : temp.entrySet()) {
                 int sale = entry.getKey();
                 double purchase = entry.getValue();
 
-                if(purchase > 3){
+                if (purchase > 3) {
                     System.out.println("OFFER " + sale + " bought " + purchase + " times");
                 }
             }

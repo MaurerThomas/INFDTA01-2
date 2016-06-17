@@ -10,9 +10,6 @@ public class Cluster {
     private SquaredEuclidianDistance squaredEuclidianDistance = new SquaredEuclidianDistance();
     private List<Point> points;
     private Point centroid;
-
-
-
     private int id;
 
     public Cluster(int id) {

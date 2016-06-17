@@ -11,10 +11,10 @@ public class GeneticA {
         boolean elitism = true;
         int iterations = 50;
 
-        Population population = new Population(50, true);
+        Population population = new Population(20, true);
         Algorithm algorithm = new Algorithm(crossoverRate, mutationRate, elitism, iterations);
-        Population evovledPopulation = algorithm.evolvePopulation(population);
-        postProcess(evovledPopulation);
+        Population evolvedPopulation = algorithm.evolvePopulation(population);
+        postProcess(evolvedPopulation);
     }
 
     private static void postProcess(Population evolvedPopulation) {
@@ -24,6 +24,9 @@ public class GeneticA {
             averageFitness += evolvedPopulation.getIndividual(i).getFitness();
         }
         averageFitness /= evolvedPopulation.getPopulationSize();
+
+        //TODO: Average fitness moet dichtbij de best fitness liggen.
+        //TODO: Andere selectiemethode gebruiken.
 
         System.out.println("Average fitness: " + averageFitness);
         System.out.println("Best fitness: " + evolvedPopulation.getFittestIndividual().getFitness());
