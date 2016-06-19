@@ -4,17 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleExponentialSmoothing {
-    private double smoothingCoefficient = 0.5;
+    private double smoothingCoefficient;
     private List<Double> originalValues;
     private List<Double> smoothedValues = new ArrayList<>();
+    private double SSE = 0;
 
     public List<Double> calculateSES(List<Double> originalValues) {
-        //S_T
-        this.originalValues = originalValues;
-
         //Starting point
         double startingPoint = getStartingPoint(originalValues);
         smoothedValues.add(startingPoint);
+
 
         for (int i = 0; i < originalValues.size(); i++) {
             double smoothedValue;
@@ -22,7 +21,7 @@ public class SimpleExponentialSmoothing {
             smoothedValues.add(smoothedValue);
         }
 
-        double SSE = getSumOfSquaredErrors();
+        SSE = getSumOfSquaredErrors();
 
         return smoothedValues;
     }
@@ -38,14 +37,47 @@ public class SimpleExponentialSmoothing {
         return startingPoint;
     }
 
-    private double getSumOfSquaredErrors(){
+    public double getBestSmoothingCoefficient(List<Double> originalValues) {
+        double currentSumOfSquaredErrors;
+        double bestSmoothingCoefficient = 0;
+        this.originalValues = originalValues;
+
+        for (int i = 1; i < 100; i++) {
+            smoothingCoefficient = i / 100d;
+            currentSumOfSquaredErrors = SSE;
+            smoothedValues.clear();
+
+            calculateSES(originalValues);
+
+            if (SSE < currentSumOfSquaredErrors) {
+                bestSmoothingCoefficient = smoothingCoefficient;
+            }
+        }
+        return bestSmoothingCoefficient;
+    }
+
+    private double getSumOfSquaredErrors() {
         double sum = 0;
 
-        for(int i = 0;i < originalValues.size(); i++){
+        for (int i = 0; i < originalValues.size(); i++) {
             double d = smoothedValues.get(i) - originalValues.get(i);
-            sum += d*d;
+            sum += d * d;
         }
 
-        return Math.sqrt(sum / (originalValues.size()-1));
+        return Math.sqrt(sum / (originalValues.size() - 1));
     }
+
+    public void setSmoothingCoefficient(double smoothingCoefficient) {
+        this.smoothingCoefficient = smoothingCoefficient;
+    }
+
+    public double getSmoothingCoefficient() {
+        return smoothingCoefficient;
+    }
+
+    public double getSSE() {
+        return SSE;
+    }
+
 }
+

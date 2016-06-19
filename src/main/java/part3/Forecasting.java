@@ -1,7 +1,9 @@
 package part3;
 
 import graph.LineChart;
+import org.jfree.chart.annotations.XYTextAnnotation;
 import org.jfree.ui.RefineryUtilities;
+import smoothing.DoubleExponentialSmoothing;
 
 import java.io.File;
 import java.io.FileNotFoundException;
