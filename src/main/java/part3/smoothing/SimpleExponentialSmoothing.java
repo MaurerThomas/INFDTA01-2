@@ -1,4 +1,4 @@
-package smoothing;
+package part3.smoothing;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ public class SimpleExponentialSmoothing {
     private double errorMeasure = 0;
 
     public List<Double> calculateSES(List<Double> originalValues) {
-        //Starting point
+        //Starting part1.point
         double startingPoint = getStartingPoint(originalValues);
         smoothedValues.add(startingPoint);
 

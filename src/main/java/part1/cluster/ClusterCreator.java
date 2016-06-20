@@ -1,6 +1,6 @@
-package cluster;
+package part1.cluster;
 
-import point.Point;
+import part1.point.Point;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,7 @@ public class ClusterCreator {
             cluster.setCentroid(centroid);
             clusters.set(i, cluster);
         }
-        // Assign allPoints to the new, closer cluster
+        // Assign allPoints to the new, closer part1.cluster
         assignPointsToCluster();
         return clusters;
     }

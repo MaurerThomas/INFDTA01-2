@@ -1,6 +1,6 @@
-package distance;
+package part1.distance;
 
-import point.Point;
+import part1.point.Point;
 
 import java.util.List;
 

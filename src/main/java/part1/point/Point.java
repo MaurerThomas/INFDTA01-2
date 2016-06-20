@@ -1,6 +1,6 @@
-package point;
+package part1.point;
 
-import distance.EuclideanDistance;
+import part1.distance.EuclideanDistance;
 
 import java.util.List;
 

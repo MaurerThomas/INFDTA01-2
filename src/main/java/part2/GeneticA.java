@@ -1,7 +1,7 @@
 package part2;
 
-import geneticAlgorithm.Algorithm;
-import member.Population;
+import part2.geneticalgorithm.Algorithm;
+import part2.member.Population;
 
 public class GeneticA {
 

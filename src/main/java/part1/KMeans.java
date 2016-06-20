@@ -1,9 +1,9 @@
 package part1;
 
-import cluster.Cluster;
-import cluster.ClusterCreator;
+import part1.cluster.Cluster;
+import part1.cluster.ClusterCreator;
 import data.PointReader;
-import point.Point;
+import part1.point.Point;
 
 import java.io.FileNotFoundException;
 import java.util.*;

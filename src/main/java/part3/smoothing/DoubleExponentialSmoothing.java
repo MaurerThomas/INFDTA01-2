@@ -1,4 +1,4 @@
-package smoothing;
+package part3.smoothing;
 
 
 import java.util.ArrayList;

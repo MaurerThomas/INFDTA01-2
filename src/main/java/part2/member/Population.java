@@ -1,4 +1,4 @@
-package member;
+package part2.member;
 
 public class Population {
 

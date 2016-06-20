@@ -1,6 +1,6 @@
-package evaluation;
+package part2.evaluation;
 
-import member.Individual;
+import part2.member.Individual;
 
 public class Fitness {
 

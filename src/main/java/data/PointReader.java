@@ -1,6 +1,6 @@
 package data;
 
-import point.Point;
+import part1.point.Point;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,7 +1,7 @@
-package cluster;
+package part1.cluster;
 
-import distance.SquaredEuclidianDistance;
-import point.Point;
+import part1.distance.SquaredEuclidianDistance;
+import part1.point.Point;
 
 import java.util.ArrayList;
 import java.util.List;

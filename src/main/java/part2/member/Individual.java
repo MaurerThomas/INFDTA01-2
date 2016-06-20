@@ -1,6 +1,6 @@
-package member;
+package part2.member;
 
-import evaluation.Fitness;
+import part2.evaluation.Fitness;
 
 public class Individual {
     private int fitness = 0;

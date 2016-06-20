@@ -1,4 +1,4 @@
-package graph;
+package part3.graph;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -10,8 +10,9 @@ import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 import org.jfree.ui.ApplicationFrame;
 import part3.Forecasting;
-import smoothing.DoubleExponentialSmoothing;
-import smoothing.SimpleExponentialSmoothing;
+import part3.smoothing.DoubleExponentialSmoothing;
+import part3.smoothing.SimpleExponentialSmoothing;
+
 
 import java.io.FileNotFoundException;
 import java.util.List;

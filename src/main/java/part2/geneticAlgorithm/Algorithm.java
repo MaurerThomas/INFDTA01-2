@@ -1,7 +1,7 @@
-package geneticAlgorithm;
+package part2.geneticalgorithm;
 
-import member.Individual;
-import member.Population;
+import part2.member.Individual;
+import part2.member.Population;
 
 import java.util.Random;
 

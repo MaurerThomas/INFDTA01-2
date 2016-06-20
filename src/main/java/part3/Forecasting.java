@@ -1,6 +1,6 @@
 package part3;
 
-import graph.LineChart;
+import part3.graph.LineChart;
 import org.jfree.ui.RefineryUtilities;
 
 import java.io.File;
