@@ -7,13 +7,12 @@ public class SimpleExponentialSmoothing {
     private double smoothingCoefficient;
     private List<Double> originalValues;
     private List<Double> smoothedValues = new ArrayList<>();
-    private double SSE = 0;
+    private double errorMeasure = 0;
 
     public List<Double> calculateSES(List<Double> originalValues) {
         //Starting point
         double startingPoint = getStartingPoint(originalValues);
         smoothedValues.add(startingPoint);
-
 
         for (int i = 0; i < originalValues.size(); i++) {
             double smoothedValue;
@@ -21,7 +20,13 @@ public class SimpleExponentialSmoothing {
             smoothedValues.add(smoothedValue);
         }
 
-        SSE = getSumOfSquaredErrors();
+        double forecastedValue = (smoothingCoefficient * originalValues.get(originalValues.size() - 1)) + ((1 - smoothingCoefficient) * smoothedValues.get(originalValues.size() - 1));
+
+        for (int i = 36; i < 47; i++) {
+            smoothedValues.add(forecastedValue);
+        }
+
+        errorMeasure = getSumOfSquaredErrors();
 
         return smoothedValues;
     }
@@ -44,12 +49,12 @@ public class SimpleExponentialSmoothing {
 
         for (int i = 1; i < 100; i++) {
             smoothingCoefficient = i / 100d;
-            currentSumOfSquaredErrors = SSE;
+            currentSumOfSquaredErrors = errorMeasure;
             smoothedValues.clear();
 
             calculateSES(originalValues);
 
-            if (SSE < currentSumOfSquaredErrors) {
+            if (errorMeasure < currentSumOfSquaredErrors) {
                 bestSmoothingCoefficient = smoothingCoefficient;
             }
         }
@@ -67,16 +72,16 @@ public class SimpleExponentialSmoothing {
         return Math.sqrt(sum / (originalValues.size() - 1));
     }
 
-    public void setSmoothingCoefficient(double smoothingCoefficient) {
-        this.smoothingCoefficient = smoothingCoefficient;
-    }
-
     public double getSmoothingCoefficient() {
         return smoothingCoefficient;
     }
 
-    public double getSSE() {
-        return SSE;
+    public void setSmoothingCoefficient(double smoothingCoefficient) {
+        this.smoothingCoefficient = smoothingCoefficient;
+    }
+
+    public double getErrorMeasure() {
+        return errorMeasure;
     }
 
 }

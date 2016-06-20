@@ -20,7 +20,6 @@ public class LineChart extends ApplicationFrame {
     private SimpleExponentialSmoothing simpleExponentialSmoothing = new SimpleExponentialSmoothing();
     private DoubleExponentialSmoothing doubleExponentialSmoothing = new DoubleExponentialSmoothing();
 
-
     public LineChart(String title, String chartTitle) throws FileNotFoundException {
         super(title);
         JFreeChart xyLineChart = ChartFactory.createXYLineChart(
@@ -28,21 +27,30 @@ public class LineChart extends ApplicationFrame {
                 "Month Number",
                 "Sword Sale",
                 dataset(),
-                PlotOrientation.VERTICAL ,
+                PlotOrientation.VERTICAL,
                 true, true, false);
 
         ChartPanel chartPanel = new ChartPanel(xyLineChart);
-        chartPanel.setPreferredSize( new java.awt.Dimension( 560 , 367 ) );
-        
-        XYTextAnnotation bestSimpleExponentialSmoothingLabel = new XYTextAnnotation("Smoothing Coefficient: " + simpleExponentialSmoothing.getSmoothingCoefficient(), 6, 300);
-        XYTextAnnotation bestErrorMeasureLabel = new XYTextAnnotation("SSE: " + simpleExponentialSmoothing.getSSE(), 18, 300);
+        chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
+
+        XYTextAnnotation bestSimpleExponentialSmoothingLabel = new XYTextAnnotation("SES Coefficient: " + simpleExponentialSmoothing.getSmoothingCoefficient(), 8, 390);
+        XYTextAnnotation bestSimpleExponentialSmoothingErrorMeasureLabel = new XYTextAnnotation("SES Error Measure: " + simpleExponentialSmoothing.getErrorMeasure(), 24, 390);
+
+        XYTextAnnotation bestDoubleExponentialSmoothingLabel = new XYTextAnnotation("DES Coefficient: " + doubleExponentialSmoothing.getBestFactors(0), 8, 370);
+        XYTextAnnotation bestDoubleExponentialSmoothingErrorMeasureLabel = new XYTextAnnotation("DES Error Measure: " + doubleExponentialSmoothing.getErrorMeasure(), 24, 370);
+        XYTextAnnotation bestDoubleExponentialTrendSmoothingLabel = new XYTextAnnotation("DES Trend: " + doubleExponentialSmoothing.getBestFactors(1), 7, 355);
 
         xyLineChart.getXYPlot().addAnnotation(bestSimpleExponentialSmoothingLabel);
-        xyLineChart.getXYPlot().addAnnotation(bestErrorMeasureLabel);
-        setContentPane( chartPanel );
+        xyLineChart.getXYPlot().addAnnotation(bestSimpleExponentialSmoothingErrorMeasureLabel);
+
+        xyLineChart.getXYPlot().addAnnotation(bestDoubleExponentialSmoothingLabel);
+        xyLineChart.getXYPlot().addAnnotation(bestDoubleExponentialTrendSmoothingLabel);
+        xyLineChart.getXYPlot().addAnnotation(bestDoubleExponentialSmoothingErrorMeasureLabel);
+
+        setContentPane(chartPanel);
     }
 
-    private XYDataset dataset() throws FileNotFoundException{
+    private XYDataset dataset() throws FileNotFoundException {
         List<Double> swords = Forecasting.getSwordSales();
 
         // Simple Smoothing
@@ -58,27 +66,24 @@ public class LineChart extends ApplicationFrame {
         doubleExponentialSmoothing.setDoubleSmoothingCoefficient(bestDoubleSmoothingCoefficient);
         doubleExponentialSmoothing.calculateDES(swords);
 
-
         List<Double> doubleSmoothedValues = doubleExponentialSmoothing.getForecastValues();
-
-
 
         final XYSeries originalTimeSeries = new XYSeries("Original time series");
         final XYSeries smoothedTimeSeries = new XYSeries("SES");
         final XYSeries doubleSmoothedTimeSeries = new XYSeries("DES");
 
-        for(int i = 0; i < swords.size(); i++){
+        for (int i = 0; i < swords.size(); i++) {
             originalTimeSeries.add(i, swords.get(i));
-            smoothedTimeSeries.add(i, smoothedValues.get(i));
-
         }
-        for(int i = 0; i < doubleSmoothedValues.size(); i++){
-            doubleSmoothedTimeSeries.add(i,doubleSmoothedValues.get(i));
+
+        for (int i = 0; i < doubleSmoothedValues.size(); i++) {
+            doubleSmoothedTimeSeries.add(i + 1, doubleSmoothedValues.get(i));
+            smoothedTimeSeries.add(i, smoothedValues.get(i));
         }
 
         final XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(originalTimeSeries);
-        //dataset.addSeries(smoothedTimeSeries);
+        dataset.addSeries(smoothedTimeSeries);
         dataset.addSeries(doubleSmoothedTimeSeries);
 
         return dataset;

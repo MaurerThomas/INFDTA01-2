@@ -1,9 +1,7 @@
 package part3;
 
 import graph.LineChart;
-import org.jfree.chart.annotations.XYTextAnnotation;
 import org.jfree.ui.RefineryUtilities;
-import smoothing.DoubleExponentialSmoothing;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,7 +21,7 @@ public class Forecasting {
     public static List<Double> getSwordSales() throws FileNotFoundException {
         List<Double> swordSales = new ArrayList<>();
         Scanner scanner = new Scanner(new File("swordforecasting.csv"));
-        while(scanner.hasNextLine()) {
+        while (scanner.hasNextLine()) {
             swordSales.add(scanner.nextDouble());
         }
         scanner.close();

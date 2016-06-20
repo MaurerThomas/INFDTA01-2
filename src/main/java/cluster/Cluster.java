@@ -45,7 +45,7 @@ public class Cluster {
     public double calculateSSE() {
         double sum = 0;
 
-        for(Point point : points) {
+        for (Point point : points) {
             sum += squaredEuclidianDistance.calculate(point, centroid);
         }
         return sum;

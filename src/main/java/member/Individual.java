@@ -18,12 +18,12 @@ public class Individual {
         return b;
     }
 
-    public void setGene(byte genes) {
-        gene = genes;
-    }
-
     public byte getGene() {
         return gene;
+    }
+
+    public void setGene(byte genes) {
+        gene = genes;
     }
 
     private int getRandomBit(int b) {

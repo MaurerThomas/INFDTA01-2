@@ -40,15 +40,14 @@ public class ClusterCreator {
         for (int i = 0; i < iterations; i++) {
             clusters = initClusters();
             double sumSquaredErrors = getSSE(clusters);
-             if (sumSquaredErrors < maximum) {
-                 maximum = sumSquaredErrors;
-                 setBestSSE(sumSquaredErrors);
-                 bestNumberOfClusters = clusters;
-             }
+            if (sumSquaredErrors < maximum) {
+                maximum = sumSquaredErrors;
+                setBestSSE(sumSquaredErrors);
+                bestNumberOfClusters = clusters;
+            }
         }
         return bestNumberOfClusters;
-        }
-
+    }
 
 
     public List<Cluster> initClusters() {
@@ -70,8 +69,8 @@ public class ClusterCreator {
         List<Point> clusterPoints = cluster.getPoints();
         double numberOfPoints = clusterPoints.size();
 
-        if(purchasesMeanTemp.isEmpty()){
-            for(int i = 0; i < 32; i++)
+        if (purchasesMeanTemp.isEmpty()) {
+            for (int i = 0; i < 32; i++)
                 purchasesMeanTemp.add(0d);
         }
 
@@ -119,14 +118,14 @@ public class ClusterCreator {
     }
 
     private void clearClusters() {
-        for(Cluster cluster : clusters) {
+        for (Cluster cluster : clusters) {
             cluster.clearPoints();
         }
     }
 
     private double getSSE(List<Cluster> clusters) {
         double sum = 0;
-        for(Cluster c : clusters) {
+        for (Cluster c : clusters) {
             sum += c.calculateSSE();
         }
 
