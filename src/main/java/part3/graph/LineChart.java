@@ -15,13 +15,14 @@ import part3.smoothing.SimpleExponentialSmoothing;
 
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 public class LineChart extends ApplicationFrame {
     private SimpleExponentialSmoothing simpleExponentialSmoothing = new SimpleExponentialSmoothing();
     private DoubleExponentialSmoothing doubleExponentialSmoothing = new DoubleExponentialSmoothing();
 
-    public LineChart(String title, String chartTitle) throws FileNotFoundException {
+    public LineChart(String title, String chartTitle) throws IOException {
         super(title);
         JFreeChart xyLineChart = ChartFactory.createXYLineChart(
                 chartTitle,
@@ -51,7 +52,7 @@ public class LineChart extends ApplicationFrame {
         setContentPane(chartPanel);
     }
 
-    private XYDataset dataset() throws FileNotFoundException {
+    private XYDataset dataset() throws IOException {
         List<Double> swords = Forecasting.getSwordSales();
 
         // Simple Smoothing

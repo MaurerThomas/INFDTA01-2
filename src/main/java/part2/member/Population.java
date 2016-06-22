@@ -46,4 +46,14 @@ public class Population {
         }
         return fittestIndividual;
     }
+
+    public Individual getLeastFitIndividual() {
+        Individual fittestIndividual = individuals[0];
+        for (Individual individual : individuals) {
+            if (individual.getFitness() < fittestIndividual.getFitness()) {
+                fittestIndividual = individual;
+            }
+        }
+        return fittestIndividual;
+    }
 }

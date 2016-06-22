@@ -3,7 +3,9 @@ package part2.geneticalgorithm;
 import part2.member.Individual;
 import part2.member.Population;
 
+import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
 
 public class Algorithm {
     private static final int TOURNAMENT_SIZE = 5;
@@ -35,8 +37,13 @@ public class Algorithm {
 
             // Create new individuals with uniform uniformCrossover and tournament selection.
             for (int i = elitismOffset; i < population.getPopulationSize(); i++) {
+
                 Individual individual1 = tournamentSelection(population);
                 Individual individual2 = tournamentSelection(population);
+//                Individual individual1 = rouletteWheelSelection(population);
+//                Individual individual2 = rouletteWheelSelection(population);
+
+
                 Individual newIndividual = uniformCrossover(individual1, individual2);
                 evolvedPopulation.setIndividual(i, newIndividual);
             }
@@ -48,6 +55,46 @@ public class Algorithm {
         }
         return evolvedPopulation;
     }
+//
+//    private Individual rankSelection(Population population) {
+//
+//        Map<Integer, Individual> rankingMap = new TreeMap();
+//        for (int i = 0; i < population.getPopulationSize(); i++) {
+//            rankingMap.put(i, population.getIndividual(i));
+//        }
+//
+//
+//    }
+
+    private Individual rouletteWheelSelection(Population population) {
+        double totalFitness = 0;
+        Random random = new Random();
+        double randomDouble = random.nextDouble();
+        //Invert the lowest fitness, so we can use this to add this value to all negative fitnesses.
+        double lowestFitness = Math.abs(population.getLeastFitIndividual().getFitness())+1;
+        double sum = 0;
+
+        //Set the total fitness
+        for (int i = 0; i < population.getPopulationSize(); i++) {
+           totalFitness += (population.getIndividual(i).getFitness() + lowestFitness);
+        }
+        //Get a random slice from the total pie
+        double desiredSlice = randomDouble * totalFitness;
+
+        for (int i = 0; i < population.getPopulationSize(); i++) {
+            //Add the fitness of the individual to the sum.
+            //If this is lower, we are NOT yet at the desired point.
+            if(sum < desiredSlice){
+                sum+= (population.getIndividual(i).getFitness() + lowestFitness);
+
+                if(sum >= desiredSlice){
+                    return population.getIndividual(i);
+                }
+            }
+        }
+        return null;
+    }
+
 
     private Individual tournamentSelection(Population population) {
         Population tournament = new Population(5, false);

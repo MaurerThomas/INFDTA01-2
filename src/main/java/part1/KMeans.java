@@ -64,7 +64,6 @@ public class KMeans {
         Map<Integer, Double> totalPurchasesMap = new TreeMap();
         List<Cluster> clusters = clusterCreator.getBestNumberOfClusters();
 
-        //TODO: SSE moet rond de 215 zijn.
         System.out.println("Best SSE: " + clusterCreator.getBestSSE());
 
         for (Cluster cluster : clusters) {
