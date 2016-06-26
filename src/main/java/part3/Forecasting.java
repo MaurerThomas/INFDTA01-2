@@ -24,29 +24,28 @@ public class Forecasting {
     public static List<Double> getSwordSales() throws IOException {
         List<Double> swordSales = new ArrayList<>();
         Scanner scanner = new Scanner(new File("swordforecasting.csv"));
-//        List<String[]> lines = new ArrayList<>();
-//
-//        for (int i = 0; i <= 10245; i++) {
-//            String line = scanner.nextLine();
-//            if (line != null && !line.isEmpty()) {
-//                lines.add(line.split(","));
-//            }
-//        }
 
         while (scanner.hasNextLine()) {
             swordSales.add(scanner.nextDouble());
         }
         scanner.close();
 
+        return swordSales;
+    }
+
+    //Method for loading another dataset (forecastingWalmart.csv)
+//    public static List<Double> getSwordSales() throws IOException {
+//        List<Double> swordSales = new ArrayList<>();
 //        CSVReader reader = new CSVReader(new FileReader("forecastingWalmart.csv"), ',', '\'', 1);
 //        String [] nextLine;
+//
 //        while ((nextLine = reader.readNext()) != null) {
-//            // nextLine[] is an array of values from the line
-//            if(nextLine[0].equals("1")) {
-//                //System.out.println(nextLine[3]);
+//            if(nextLine[0].equals("1") && nextLine[1].equals("2")) {
 //                swordSales.add(Double.parseDouble(nextLine[3]));
 //            }
 //        }
-        return swordSales;
-    }
+//        reader.close();
+//
+//        return swordSales;
+//    }
 }

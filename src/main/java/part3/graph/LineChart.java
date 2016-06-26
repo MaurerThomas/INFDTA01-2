@@ -26,8 +26,8 @@ public class LineChart extends ApplicationFrame {
         super(title);
         JFreeChart xyLineChart = ChartFactory.createXYLineChart(
                 chartTitle,
-                "Month Number",
-                "Sword Sale",
+                "Week Number",
+                "WallMart sales",
                 dataset(),
                 PlotOrientation.VERTICAL,
                 true, true, false);
@@ -35,15 +35,18 @@ public class LineChart extends ApplicationFrame {
         ChartPanel chartPanel = new ChartPanel(xyLineChart);
         chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
 
-        XYTextAnnotation bestSimpleExponentialSmoothingLabel = new XYTextAnnotation("SES Coefficient: " + simpleExponentialSmoothing.getSmoothingCoefficient(), 8, 390);
-        XYTextAnnotation bestSimpleExponentialSmoothingErrorMeasureLabel = new XYTextAnnotation("SES Error Measure: " + simpleExponentialSmoothing.getErrorMeasure(), 24, 390);
+        //XYTextAnnotation bestSimpleExponentialSmoothingLabel = new XYTextAnnotation("SES Coefficient: " + simpleExponentialSmoothing.getSmoothingCoefficient(), 8, 390);
+        //XYTextAnnotation bestSimpleExponentialSmoothingErrorMeasureLabel = new XYTextAnnotation("SES Error Measure: " + simpleExponentialSmoothing.getErrorMeasure(), 24, 390);
 
-        XYTextAnnotation bestDoubleExponentialSmoothingLabel = new XYTextAnnotation("DES Coefficient: " + doubleExponentialSmoothing.getBestFactors(0), 8, 370);
-        XYTextAnnotation bestDoubleExponentialSmoothingErrorMeasureLabel = new XYTextAnnotation("DES Error Measure: " + doubleExponentialSmoothing.getErrorMeasure(), 24, 370);
-        XYTextAnnotation bestDoubleExponentialTrendSmoothingLabel = new XYTextAnnotation("DES Trend: " + doubleExponentialSmoothing.getBestFactors(1), 7, 355);
+        XYTextAnnotation bestDoubleExponentialSmoothingLabel = new XYTextAnnotation("DES Coefficient: " + doubleExponentialSmoothing.getBestFactors(0), 15, 67500);
+        System.out.println("DES Coefficient: " + doubleExponentialSmoothing.getBestFactors(0));
+        XYTextAnnotation bestDoubleExponentialSmoothingErrorMeasureLabel = new XYTextAnnotation("DES Error Measure: " + doubleExponentialSmoothing.getErrorMeasure(), 24, 62500);
+        System.out.println("DES Error Measure: " + doubleExponentialSmoothing.getErrorMeasure());
+        System.out.println("DES Trend: " + doubleExponentialSmoothing.getBestFactors(1));
+        XYTextAnnotation bestDoubleExponentialTrendSmoothingLabel = new XYTextAnnotation("DES Trend: " + doubleExponentialSmoothing.getBestFactors(1), 15, 65000);
 
-        xyLineChart.getXYPlot().addAnnotation(bestSimpleExponentialSmoothingLabel);
-        xyLineChart.getXYPlot().addAnnotation(bestSimpleExponentialSmoothingErrorMeasureLabel);
+        //xyLineChart.getXYPlot().addAnnotation(bestSimpleExponentialSmoothingLabel);
+        //xyLineChart.getXYPlot().addAnnotation(bestSimpleExponentialSmoothingErrorMeasureLabel);
 
         xyLineChart.getXYPlot().addAnnotation(bestDoubleExponentialSmoothingLabel);
         xyLineChart.getXYPlot().addAnnotation(bestDoubleExponentialTrendSmoothingLabel);
@@ -79,13 +82,13 @@ public class LineChart extends ApplicationFrame {
         }
 
         for (int i = 0; i < doubleSmoothedValues.size(); i++) {
-            doubleSmoothedTimeSeries.add(i + 1, doubleSmoothedValues.get(i));
+            doubleSmoothedTimeSeries.add(i, doubleSmoothedValues.get(i));
             smoothedTimeSeries.add(i, smoothedValues.get(i));
         }
 
         final XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(originalTimeSeries);
-        dataset.addSeries(smoothedTimeSeries);
+        //dataset.addSeries(smoothedTimeSeries);
         dataset.addSeries(doubleSmoothedTimeSeries);
 
         return dataset;

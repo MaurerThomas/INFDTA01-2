@@ -25,9 +25,6 @@ public class GeneticA {
         }
         averageFitness /= evolvedPopulation.getPopulationSize();
 
-        //TODO: Average fitness moet dichtbij de best fitness liggen.
-        //TODO: Andere selectiemethode gebruiken.
-
         System.out.println("Average fitness: " + averageFitness);
         System.out.println("Best fitness: " + evolvedPopulation.getFittestIndividual().getFitness());
         System.out.println("Best individual: " + evolvedPopulation.getFittestIndividual());

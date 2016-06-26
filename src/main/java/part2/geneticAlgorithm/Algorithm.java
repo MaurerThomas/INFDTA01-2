@@ -18,6 +18,7 @@ public class Algorithm {
     public Algorithm(double crossoverRate, double mutationRate, boolean elitism, int iterations) {
         this.crossoverRate = crossoverRate;
         this.mutationRate = mutationRate;
+        //TODO: Fix this: Elitism is NOT used. The evolved population should only get better.
         this.elitism = elitism;
         this.iterations = iterations;
     }
@@ -40,9 +41,8 @@ public class Algorithm {
 
                 Individual individual1 = tournamentSelection(population);
                 Individual individual2 = tournamentSelection(population);
-//                Individual individual1 = rouletteWheelSelection(population);
-//                Individual individual2 = rouletteWheelSelection(population);
-
+                //Individual individual1 = rouletteWheelSelection(population);
+                //Individual individual2 = rouletteWheelSelection(population);
 
                 Individual newIndividual = uniformCrossover(individual1, individual2);
                 evolvedPopulation.setIndividual(i, newIndividual);

@@ -1,6 +1,5 @@
 package part3.smoothing;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,38 +38,30 @@ public class DoubleExponentialSmoothing {
     }
 
     public double[] getBestDoubleSmoothingCoefficientFactors(List<Double> originalValues) {
-        double currentErrorMeasure;
         double bestSmoothingCoefficient = 0;
         double bestTrendCoefficient = 0;
+        //TODO: Fix lowestErrorMeasure so that is not a random high number.
+        double lowestErrorMeasure = 500000;
 
         this.originalValues = originalValues;
 
         for (int i = 1; i < 100; i++) {
             doubleSmoothingCoefficient = i / 100d;
 
-            currentErrorMeasure = errorMeasure;
-            smoothedValues.clear();
-            trendValues.clear();
+            for (int j = 1; j < 100; j++) {
+                trendCoefficient = j / 100d;
 
-            calculateDES(originalValues);
+                smoothedValues.clear();
+                trendValues.clear();
 
-            if (errorMeasure < currentErrorMeasure) {
-                bestSmoothingCoefficient = doubleSmoothingCoefficient;
-            }
+                calculateDES(originalValues);
 
-        }
-        for (int i = 1; i < 100; i++) {
-            trendCoefficient = i / 100d;
-            doubleSmoothingCoefficient = bestSmoothingCoefficient;
+                if (errorMeasure < lowestErrorMeasure) {
+                    lowestErrorMeasure = errorMeasure;
 
-            currentErrorMeasure = errorMeasure;
-            smoothedValues.clear();
-            trendValues.clear();
-
-            calculateDES(originalValues);
-
-            if (errorMeasure < currentErrorMeasure) {
-                bestTrendCoefficient = trendCoefficient;
+                    bestTrendCoefficient = trendCoefficient;
+                    bestSmoothingCoefficient = doubleSmoothingCoefficient;
+                }
             }
         }
 
@@ -82,8 +73,10 @@ public class DoubleExponentialSmoothing {
     private List<Double> calculateForecast() {
         double forecast;
         forecastValues.clear();
+        forecastValues.add(null);
+        forecastValues.add(null);
 
-        for (int i = 1; i < 48; i++) {
+        for (int i = 1; i < originalValues.size()+8; i++) {
             if (i < originalValues.size()) {
                 forecast = smoothedValues.get(i) + trendValues.get(i);
             } else {
@@ -92,7 +85,7 @@ public class DoubleExponentialSmoothing {
             forecastValues.add(forecast);
         }
         // Dirty fix , fix this if we know the answer to the problem.
-        forecastValues.remove(35);
+        forecastValues.remove(originalValues.size()+1);
         setSumOfSquaredErrors();
         return forecastValues;
     }
@@ -100,12 +93,12 @@ public class DoubleExponentialSmoothing {
     private void setSumOfSquaredErrors() {
         double sum = 0;
 
-        for (int i = 1; i < originalValues.size(); i++) {
-            double d = forecastValues.get(i) - originalValues.get(i);
+        for (int i = 0; i < originalValues.size()-2; i++) {
+            double d = forecastValues.get(i+2) - originalValues.get(i+2);
             sum += d * d;
         }
 
-        errorMeasure = Math.sqrt(sum / (originalValues.size() - 1));
+        errorMeasure = Math.sqrt(sum / (originalValues.size() - 2));
     }
 
     public List<Double> getSmoothedValues() {

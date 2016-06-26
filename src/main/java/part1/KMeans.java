@@ -53,7 +53,7 @@ public class KMeans {
             clusterCreator = new ClusterCreator(new PointReader().readCsv());
             // Set Random Centroids.
             clusterCreator.initRandomCentroids();
-            clusterCreator.createClusters(200);
+            clusterCreator.createClusters(15);
             postProcesStep(clusterCreator);
         } catch (FileNotFoundException e) {
             logger.log(Level.SEVERE, "Could not find the file: ", e);
@@ -67,7 +67,11 @@ public class KMeans {
         System.out.println("Best SSE: " + clusterCreator.getBestSSE());
 
         for (Cluster cluster : clusters) {
+            totalPurchasesMap.clear();
+
             for (Point point : cluster.getPoints()) {
+
+
                 List<Double> purchases = point.getPurchases();
 
                 for (int i = 0; i < purchases.size(); i++) {
@@ -81,7 +85,8 @@ public class KMeans {
 
             Map<Integer, Double> temp = sortByValue(totalPurchasesMap);
 
-            System.out.println("\n" + "Cluster: " + cluster.getId() + "\n");
+            System.out.println("\n" + "Cluster: " + cluster.getId());
+            System.out.println("Number of points: " + cluster.getPoints().size());
             for (Map.Entry<Integer, Double> entry : temp.entrySet()) {
                 int sale = entry.getKey();
                 double purchase = entry.getValue();

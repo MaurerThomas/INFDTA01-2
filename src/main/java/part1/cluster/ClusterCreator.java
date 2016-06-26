@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 public class ClusterCreator {
-    private int MAX_CLUSTERS = 4;
+    private int MAX_CLUSTERS = 35;
     private List<Cluster> clusters;
     private List<Point> allPoints;
     private double bestSSE = 0;
@@ -70,7 +70,7 @@ public class ClusterCreator {
         double numberOfPoints = clusterPoints.size();
 
         if (purchasesMeanTemp.isEmpty()) {
-            for (int i = 0; i < 32; i++)
+            for (int i = 0; i < 2; i++)
                 purchasesMeanTemp.add(0d);
         }
 
