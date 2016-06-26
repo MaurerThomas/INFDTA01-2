@@ -40,8 +40,7 @@ public class DoubleExponentialSmoothing {
     public double[] getBestDoubleSmoothingCoefficientFactors(List<Double> originalValues) {
         double bestSmoothingCoefficient = 0;
         double bestTrendCoefficient = 0;
-        //TODO: Fix lowestErrorMeasure so that is not a random high number.
-        double lowestErrorMeasure = 500000;
+        double lowestErrorMeasure = Double.POSITIVE_INFINITY;
 
         this.originalValues = originalValues;
 
