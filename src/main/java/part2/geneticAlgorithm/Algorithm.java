@@ -26,15 +26,14 @@ public class Algorithm {
     public Population evolvePopulation(Population population) {
         // This is the evolved population.
         Population evolvedPopulation = new Population(population.getPopulationSize(), false);
+        int elitismOffset = 0;
         for (int p = 0; p < iterations; p++) {
-            int elitismOffset = 0;
-
             // We don't want to lose our best individual so we set offset to 1.
             // This will ensure that we do not override the individual.
             if (elitism) {
                 elitismOffset = 1;
                 evolvedPopulation.setIndividual(0, population.getFittestIndividual());
-            }
+        }
 
             // Create new individuals with uniform uniformCrossover and tournament selection.
             for (int i = elitismOffset; i < population.getPopulationSize(); i++) {

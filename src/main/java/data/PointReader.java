@@ -12,7 +12,7 @@ public class PointReader {
     private List<Point> points;
 
     public List<Point> readCsv() throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File("a2.csv"));
+        Scanner scanner = new Scanner(new File("WineData.csv"));
         while (scanner.hasNext()) {
             points = new ArrayList<>();
             List<String[]> lines = new ArrayList<>();
@@ -30,17 +30,28 @@ public class PointReader {
         return points;
     }
 
+
+//    private void parseLines(List<String[]> lines) {
+//        for (String[] vals : lines) {
+//            List<Double> values = new ArrayList<>(lines.size());
+//
+//            for (int i = 0; i < vals.length; i++) {
+//                double value = Double.parseDouble(vals[i]);
+//                values.add(value);
+//            }
+//
+//            points.add(new Point(values));
+//        }
+//    }
+
     private void parseLines(List<String[]> lines) {
-        for (String[] vals : lines) {
-            List<Double> values = new ArrayList<>(lines.size());
 
-            for (int i = 0; i < vals.length; i++) {
-                double value = Double.parseDouble(vals[i]);
-                values.add(value);
+        for (int i = 0; i < lines.get(0).length; i++) {
+            ArrayList<Double> values = new ArrayList<>(lines.size());
+            for (int j = 0; j < lines.size(); j++) {
+                values.add(Double.parseDouble(lines.get(j)[i]));
             }
-
             points.add(new Point(values));
         }
     }
-
 }

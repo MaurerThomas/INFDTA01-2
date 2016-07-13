@@ -45,10 +45,9 @@ public class DoubleExponentialSmoothing {
         this.originalValues = originalValues;
 
         for (int i = 1; i < 100; i++) {
-            doubleSmoothingCoefficient = i / 100d;
-
+            trendCoefficient = i / 100d;
             for (int j = 1; j < 100; j++) {
-                trendCoefficient = j / 100d;
+                doubleSmoothingCoefficient = j / 100d;
 
                 smoothedValues.clear();
                 trendValues.clear();
@@ -92,7 +91,7 @@ public class DoubleExponentialSmoothing {
     private void setSumOfSquaredErrors() {
         double sum = 0;
 
-        for (int i = 0; i < originalValues.size()-2; i++) {
+        for (int i = 0; i < originalValues.size() - 2 ; i++) {
             double d = forecastValues.get(i+2) - originalValues.get(i+2);
             sum += d * d;
         }

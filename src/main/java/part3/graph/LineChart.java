@@ -35,8 +35,10 @@ public class LineChart extends ApplicationFrame {
         ChartPanel chartPanel = new ChartPanel(xyLineChart);
         chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
 
-        //XYTextAnnotation bestSimpleExponentialSmoothingLabel = new XYTextAnnotation("SES Coefficient: " + simpleExponentialSmoothing.getSmoothingCoefficient(), 8, 390);
-        //XYTextAnnotation bestSimpleExponentialSmoothingErrorMeasureLabel = new XYTextAnnotation("SES Error Measure: " + simpleExponentialSmoothing.getErrorMeasure(), 24, 390);
+        XYTextAnnotation bestSimpleExponentialSmoothingLabel = new XYTextAnnotation("SES Coefficient: " + simpleExponentialSmoothing.getSmoothingCoefficient(), 8, 390);
+        System.out.println("SES Coefficient: " + simpleExponentialSmoothing.getSmoothingCoefficient());
+        XYTextAnnotation bestSimpleExponentialSmoothingErrorMeasureLabel = new XYTextAnnotation("SES Error Measure: " + simpleExponentialSmoothing.getErrorMeasure(), 24, 390);
+        System.out.println("SES Error Measure: " + simpleExponentialSmoothing.getErrorMeasure());
 
         XYTextAnnotation bestDoubleExponentialSmoothingLabel = new XYTextAnnotation("DES Coefficient: " + doubleExponentialSmoothing.getBestFactors(0), 15, 67500);
         System.out.println("DES Coefficient: " + doubleExponentialSmoothing.getBestFactors(0));
@@ -45,8 +47,8 @@ public class LineChart extends ApplicationFrame {
         System.out.println("DES Trend: " + doubleExponentialSmoothing.getBestFactors(1));
         XYTextAnnotation bestDoubleExponentialTrendSmoothingLabel = new XYTextAnnotation("DES Trend: " + doubleExponentialSmoothing.getBestFactors(1), 15, 65000);
 
-        //xyLineChart.getXYPlot().addAnnotation(bestSimpleExponentialSmoothingLabel);
-        //xyLineChart.getXYPlot().addAnnotation(bestSimpleExponentialSmoothingErrorMeasureLabel);
+        xyLineChart.getXYPlot().addAnnotation(bestSimpleExponentialSmoothingLabel);
+        xyLineChart.getXYPlot().addAnnotation(bestSimpleExponentialSmoothingErrorMeasureLabel);
 
         xyLineChart.getXYPlot().addAnnotation(bestDoubleExponentialSmoothingLabel);
         xyLineChart.getXYPlot().addAnnotation(bestDoubleExponentialTrendSmoothingLabel);

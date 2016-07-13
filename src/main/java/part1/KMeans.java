@@ -53,7 +53,7 @@ public class KMeans {
             clusterCreator = new ClusterCreator(new PointReader().readCsv());
             // Set Random Centroids.
             clusterCreator.initRandomCentroids();
-            clusterCreator.createClusters(15);
+            clusterCreator.createClusters(200);
             postProcesStep(clusterCreator);
         } catch (FileNotFoundException e) {
             logger.log(Level.SEVERE, "Could not find the file: ", e);
